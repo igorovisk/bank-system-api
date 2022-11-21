@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { UserController } from '../controllers';
 import { RouteValidator } from './validations';
 import { CreateUserValidator, GetUserValidator } from './schemas';
-import { authCheck } from '../../middlewares/auth.middleware';
+import { JwtTokenUtils } from '../../../utils';
 
 const controller = new UserController();
 const router = Router();
@@ -10,7 +10,8 @@ const router = Router();
 router
   .route('/users$')
   .get((req: Request, res: Response, next: NextFunction) => {
-    authCheck(req);
+   const token = req.headers['x-access-token'].toString();
+   JwtTokenUtils.verify(token)
     controller.getUsers(req, res, next);
   })
   .post(
@@ -24,14 +25,15 @@ router
   .get(
     RouteValidator.validate(GetUserValidator.get()),
     (req: Request, res: Response, next: NextFunction) => {
-      authCheck(req), controller.getUserById(req, res, next);
+      const token = req.headers['x-access-token'].toString();
+      JwtTokenUtils.verify(token), controller.getUserById(req, res, next);
     },
   )
-  .delete((req: Request, res: Response, next: NextFunction) => {
-    controller.deleteUser(req, res, next);
-  })
-  .put((req: Request, res: Response, next: NextFunction) => {
-    controller.updateUser(req, res, next);
-  });
+  // .delete((req: Request, res: Response, next: NextFunction) => {
+  //   controller.deleteUser(req, res, next);
+  // })
+  // .put((req: Request, res: Response, next: NextFunction) => {
+  //   controller.updateUser(req, res, next);
+  // });
 
 export { router as UserRouter };

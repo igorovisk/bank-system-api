@@ -1,3 +1,4 @@
+import { NextFunction } from 'express';
 import * as JWT from 'jsonwebtoken';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { AppEnvs } from '../../config/envs/app-envs';
@@ -12,22 +13,17 @@ export class JwtTokenUtils {
     });
   }
 
-  static verify(token: string): object {
+  static verify(token: string) {
     try {
-      const result = JWT.verify(token, AppEnvs.TOKEN_CONFIG.JWT.SECRET);
-
-      if (typeof result == 'object') {
-        return result;
-      }
-
-      JSON.parse(result);
+      const result = JWT.verify(token, process.env.JWT_SECRET);
+      return result;
     } catch (err) {
       if (err instanceof TokenExpiredError) {
         console.warn(`Expired Token: ${token}`);
         throw new Error(`Expired Token: ${token}`);
       }
       console.error(`Error while validating JWT Token: ${token} `, err);
-      throw new Error(`Invalid Token: ${token}`);
+      throw new Error(`Token: ${token} é inválido`);
     }
   }
 }
