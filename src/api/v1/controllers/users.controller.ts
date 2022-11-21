@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserLogic } from '../logic';
-import { Encrypt } from '../../../utils/encrypt/crypto';
-import { AccountController } from './accounts.controller';
 
 export class UserController {
   private logic: UserLogic;
@@ -21,28 +19,10 @@ export class UserController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = { ...req.body };
-      const accountController = new AccountController();
-      const encrypt = new Encrypt();
-
-      const account = await accountController.create(req, res, next);
-      const encryptedPassword = await encrypt.encryptString(user.password);
-
-      if (account && encryptedPassword) {
-        user.accountId = account?.id;
-        user.password = encryptedPassword;
-      } else {
-        return res
-          .status(500)
-          .json('Erro no processamento dos dados informados');
-      }
-
-      const response = await this.logic.create(user);
-
+      const response = await this.logic.create(req, res, next);
       if (response) {
         return res.status(201).json(response);
       }
-
       return res
         .status(409)
         .json('Este nome de usuário já existe na nossa base de dados.');
@@ -54,7 +34,7 @@ export class UserController {
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      console.log(id, 'ID')
+      console.log(id, 'ID');
       const response = await this.logic.getUserById(id);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {

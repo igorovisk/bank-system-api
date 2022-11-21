@@ -19,9 +19,7 @@ export class AccountController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const account = { balance: 100.0 };
-
-      const response = await this.logic.create(account);
+      const response = await this.logic.create(req, res, next);
       if (response) {
         return response;
       }

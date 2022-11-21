@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { AccountDTO } from '../dtos';
 const prisma = new PrismaClient();
 
 export class AccountRepository {
@@ -11,9 +12,9 @@ export class AccountRepository {
     }
   }
 
-  async create(account) {
+  async create(account: AccountDTO) {
     try {
-      const response = await prisma.accounts.create(account);
+      const response = await prisma.accounts.create({ data: account });
       return response;
     } catch (error) {
       console.log(error);

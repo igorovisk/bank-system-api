@@ -10,8 +10,8 @@ const router = Router();
 router
   .route('/users$')
   .get((req: Request, res: Response, next: NextFunction) => {
-   const token = req.headers['x-access-token'].toString();
-   JwtTokenUtils.verify(token)
+    const token = req.headers['x-access-token'].toString();
+    JwtTokenUtils.verify(token);
     controller.getUsers(req, res, next);
   })
   .post(
@@ -28,12 +28,16 @@ router
       const token = req.headers['x-access-token'].toString();
       JwtTokenUtils.verify(token), controller.getUserById(req, res, next);
     },
-  )
-  // .delete((req: Request, res: Response, next: NextFunction) => {
-  //   controller.deleteUser(req, res, next);
-  // })
-  // .put((req: Request, res: Response, next: NextFunction) => {
-  //   controller.updateUser(req, res, next);
-  // });
+  );
+// .delete((req: Request, res: Response, next: NextFunction) => {
+// const token = req.headers['x-access-token'].toString();
+//   controller.deleteUser(req, res, next);
+// JwtTokenUtils.verify(token)
+// })
+// .put((req: Request, res: Response, next: NextFunction) => {
+// const token = req.headers['x-access-token'].toString();
+// JwtTokenUtils.verify(token)
+//   controller.updateUser(req, res, next);
+// });
 
 export { router as UserRouter };

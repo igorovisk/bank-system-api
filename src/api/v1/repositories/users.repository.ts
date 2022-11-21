@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { UserDTO } from '../dtos';
 const prisma = new PrismaClient();
 
 export class UserRepository {
@@ -11,9 +12,10 @@ export class UserRepository {
     }
   }
 
+  //TODO CHECK WHY INTERFACE IS NOT WORKING
   async create(user) {
     try {
-      const response = await prisma.users.create(user);
+      const response = await prisma.users.create({ data: user });
       return response;
     } catch (error) {
       console.log(error);

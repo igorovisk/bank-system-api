@@ -1,5 +1,6 @@
 import { AccountRepository } from '../repositories';
 import { AccountDTO } from '../dtos';
+import { NextFunction, Request, Response } from 'express';
 
 export class AccountLogic {
   private repository: AccountRepository;
@@ -17,10 +18,10 @@ export class AccountLogic {
     }
   }
 
-  async create(dto: AccountDTO): Promise<AccountDTO> {
+  async create(req: Request, res: Response, next: NextFunction): Promise<AccountDTO> {
     try {
-      delete dto['_originalData'];
-      const response = await this.repository.create({ data: dto });
+      const account = { balance: 100.0 };
+      const response = await this.repository.create(account);
       return response;
     } catch (error) {
       throw error;
