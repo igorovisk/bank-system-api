@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import { UserLogic } from '../logic';
 import { Encrypt } from '../../../utils/encrypt/crypto';
 import { AccountController } from './accounts.controller';
-import * as Sentry from '@sentry/node';
 
 export class UserController {
   private logic: UserLogic;
@@ -16,7 +15,6 @@ export class UserController {
       const response = await this.logic.getUsers();
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      Sentry.captureException(error);
       return next(error);
     }
   }
@@ -49,7 +47,6 @@ export class UserController {
         .status(409)
         .json('Este nome de usuário já existe na nossa base de dados.');
     } catch (error) {
-      Sentry.captureException(error);
       return next(error);
     }
   }
@@ -57,10 +54,10 @@ export class UserController {
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
+      console.log(id, 'ID')
       const response = await this.logic.getUserById(id);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      Sentry.captureException(error);
       return next(error);
     }
   }
@@ -71,7 +68,6 @@ export class UserController {
       const response = await this.logic.updateUser(id, req.body);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      Sentry.captureException(error);
       return next(error);
     }
   }
@@ -82,7 +78,6 @@ export class UserController {
       const response = await this.logic.deleteUser(id);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      Sentry.captureException(error);
       return next(error);
     }
   }

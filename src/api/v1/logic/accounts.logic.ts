@@ -27,15 +27,6 @@ export class AccountLogic {
     }
   }
 
-  //   async getUserById(id: string): Promise<AccountDTO> {
-  //     try {
-  //       const response = await this.repository.getUserById(id);
-  //       return response;
-  //     } catch (error) {
-  //       throw error;
-  //     }
-  //   }
-
   async updateAccount(id: string, data: any): Promise<AccountDTO> {
     try {
       const response = await this.repository.updateAccount(id, data);

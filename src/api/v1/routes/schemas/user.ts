@@ -13,7 +13,7 @@ const userSchema = Joi.object({
 
 export class GetUserValidator {
   private static params = Joi.object({
-    id: Joi.number().required(),
+    id: Joi.string().required(),
   });
 
   static get(): SchemaValidator {

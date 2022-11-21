@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ErrorMiddleware } from './generic-middleware';
 export class ErrorHandlerMiddleware implements ErrorMiddleware {
   handler(err: Error, req: Request, res: Response, next: NextFunction) {
+    console.log(err, 'ERR');
     let statusCode = 'status' in err ? err['status'] : 500;
     const response = {
       statusCode: statusCode || 500,
@@ -17,7 +18,7 @@ export class ErrorHandlerMiddleware implements ErrorMiddleware {
     }
 
     //TODO MUDAR DEPOIS PARA STATUS CODE
-    // statusCode = statusCode ? statusCode : 500;
+
     res.status(200);
 
     res.json(response);

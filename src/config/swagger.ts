@@ -6,7 +6,7 @@ const options: swaggerJsdoc.Options = {
   swaggerDefinition: {
     info: {
       description: 'Api Prospects',
-      title: 'Prospect Full-Stack API',
+      title: 'NG',
       version: '1.0.0',
     },
     securityDefinitions: {
