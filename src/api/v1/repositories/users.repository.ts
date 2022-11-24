@@ -1,9 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import { UserDTO } from '../dtos';
+import { UserInterface } from '../interfaces/user.interface';
 const prisma = new PrismaClient();
 
 export class UserRepository {
-  async getUsers() {
+  async getUsers(): Promise<UserDTO[]> {
     try {
       const response = await prisma.users.findMany();
       return response;
@@ -12,8 +13,7 @@ export class UserRepository {
     }
   }
 
-  //TODO CHECK WHY INTERFACE IS NOT WORKING
-  async create(user) {
+  async create(user: UserInterface): Promise<UserDTO> {
     try {
       const response = await prisma.users.create({ data: user });
       return response;
@@ -23,7 +23,7 @@ export class UserRepository {
     }
   }
 
-  async getUserByUsername(username: string) {
+  async getUserByUsername(username: string): Promise<UserDTO> {
     try {
       const user = await prisma.users.findUnique({
         where: {
@@ -36,7 +36,7 @@ export class UserRepository {
     }
   }
 
-  async getUserById(id: string) {
+  async getUserById(id: string): Promise<UserDTO> {
     try {
       const user = await prisma.users.findUnique({
         where: {
@@ -62,7 +62,7 @@ export class UserRepository {
     }
   }
 
-  async updateUser(id: string, data: any) {
+  async updateUser(id: string, data: any): Promise<UserDTO> {
     try {
       const user = await prisma.users.update({
         where: {

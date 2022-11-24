@@ -17,13 +17,17 @@ export class AccountController {
     }
   }
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  async create(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) // :Promise<Response>
+  {
     try {
-      const response = await this.logic.create(req, res, next);
-      if (response) {
-        return response;
-      }
+      const response = await this.logic.create();
+      return res.status(response ? 200 : 204).json(response);
     } catch (error) {
+      //TODO VERIFICAR A NEXT FUNCTION QUANDO COLOCO O RETORNO DO TYPESCRIPT DESSA FUNÇÃO COMO PRIMISSE <RESPONSE>
       return next(error);
     }
   }

@@ -1,6 +1,6 @@
 export interface AccountDTO {
-  id?: string;
+  id: string;
   balance: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -1,7 +1,5 @@
-export interface TransactionDTO {
-  id: string;
+export interface TransactionInterface {
   amount: number;
   creditedAccountId: string;
   debitedAccountId: string;
-  createdAt: Date;
 }

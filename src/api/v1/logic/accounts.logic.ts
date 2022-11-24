@@ -18,7 +18,7 @@ export class AccountLogic {
     }
   }
 
-  async create(req: Request, res: Response, next: NextFunction): Promise<AccountDTO> {
+  async create(): Promise<AccountDTO> {
     try {
       const account = { balance: 100.0 };
       const response = await this.repository.create(account);
