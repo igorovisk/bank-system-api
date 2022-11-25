@@ -33,6 +33,9 @@ export class TransactionLogic {
     if (!creditedAccount) {
       throw new Error('A conta a ser creditada é inexistente');
     }
+    if (creditedAccount.balance < amount) {
+      throw new Error('O saldo é insuficiente para realizar a operação');
+    }
 
     const transaction = {
       creditedAccountId: creditedAccount.id,
@@ -40,7 +43,25 @@ export class TransactionLogic {
       amount: Number(amount),
     };
 
+    const newCreditedAccountBalance = creditedAccount.balance - amount;
+    const newDebitedAccountBalance = debitedAccount.balance + amount;
+
     const response = await this.repository.create(transaction);
+
+    const updateCreditedAccount = await this.accountRepository.updateAccount(
+      creditedAccount.id,
+      { balance: newCreditedAccountBalance },
+    );
+
+    console.log(updateCreditedAccount);
+
+    const updateDebitedAccount = await this.accountRepository.updateAccount(
+      debitedAccount.id,
+      { balance: newDebitedAccountBalance },
+    );
+
+    console.log(updateDebitedAccount);
+
     return response;
   }
 

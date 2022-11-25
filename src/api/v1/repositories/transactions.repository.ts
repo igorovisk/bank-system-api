@@ -9,6 +9,11 @@ export class TransactionRepository {
       const response = await prisma.transactions.create({
         data: transaction,
       });
+
+      if(!response){
+        throw new Error("Erro na criação da transação")
+      }
+      
       return response;
     } catch (error) {
       console.error(error);

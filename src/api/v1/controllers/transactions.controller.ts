@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { TransactionLogic } from '../logic/transaction.logic';
+import { TransactionLogic } from '../logic/transactions.logic';
 
 export class TransactionController {
   private logic: TransactionLogic;

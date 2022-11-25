@@ -34,12 +34,11 @@ export class UserLogic {
 
       const accountController = new AccountController();
       const account = await accountController.create(req, res, next);
-
       const encrypt = new Encrypt();
       const encryptedPassword = await encrypt.encryptString(user.password);
 
       if (account && encryptedPassword) {
-        user.accountId = account?.id;
+        user.accountId = account.id;
         user.password = encryptedPassword;
       } else {
         throw new Error('Erro no processamento dos dados informados');
