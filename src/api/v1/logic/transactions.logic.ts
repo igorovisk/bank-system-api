@@ -53,14 +53,10 @@ export class TransactionLogic {
       { balance: newCreditedAccountBalance },
     );
 
-    console.log(updateCreditedAccount);
-
     const updateDebitedAccount = await this.accountRepository.updateAccount(
       debitedAccount.id,
       { balance: newDebitedAccountBalance },
     );
-
-    console.log(updateDebitedAccount);
 
     return response;
   }
