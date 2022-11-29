@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { AccountDTO } from '../dtos';
+import { AccountDTO } from '../interfaces/dtos';
 import { AccountLogic } from '../logic';
 
 export class AccountController {
@@ -9,12 +9,16 @@ export class AccountController {
     this.logic = new AccountLogic();
   }
 
-  async getAccounts(req: Request, res: Response, next: NextFunction) {
+  async getAccounts(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     try {
       const response = await this.logic.getAccounts();
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 
@@ -26,19 +30,22 @@ export class AccountController {
     try {
       const response = await this.logic.create();
       return response;
-    } catch (error) {
-      //TODO VERIFICAR A NEXT FUNCTION QUANDO COLOCO O RETORNO DO TYPESCRIPT DESSA FUNÇÃO COMO PRIMISSE <RESPONSE>
-      // return next(error);
+    } catch (error: unknown) {
+      next(error);
     }
   }
 
-  async updateAccount(req: Request, res: Response, next: NextFunction) {
+  async updateAccount(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     try {
       const { id } = req.params;
       const response = await this.logic.updateAccount(id, req.body);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 

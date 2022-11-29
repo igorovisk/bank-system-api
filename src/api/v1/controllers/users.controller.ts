@@ -8,16 +8,24 @@ export class UserController {
     this.logic = new UserLogic();
   }
 
-  async getUsers(req: Request, res: Response, next: NextFunction) {
+  async getUsers(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     try {
       const response = await this.logic.getUsers();
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  async create(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     try {
       const response = await this.logic.create(req, res, next);
       if (response) {
@@ -27,38 +35,50 @@ export class UserController {
         .status(409)
         .json('Este nome de usuário já existe na nossa base de dados.');
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 
-  async getUserById(req: Request, res: Response, next: NextFunction) {
+  async getUserById(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     try {
       const { id } = req.params;
       console.log(id, 'ID');
       const response = await this.logic.getUserById(id);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 
-  async updateUser(req: Request, res: Response, next: NextFunction) {
+  async updateUser(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     try {
       const { id } = req.params;
       const response = await this.logic.updateUser(id, req.body);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 
-  async deleteUser(req: Request, res: Response, next: NextFunction) {
+  async deleteUser(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     try {
       const { id } = req.params;
       const response = await this.logic.deleteUser(id);
       return res.status(response ? 200 : 204).json(response);
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 }

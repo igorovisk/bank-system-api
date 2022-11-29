@@ -8,7 +8,11 @@ export class TransactionController {
     this.logic = new TransactionLogic();
   }
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  async create(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
     const response = await this.logic.create(req, res, next);
     return res.status(response ? 200 : 204).json(response);
   }

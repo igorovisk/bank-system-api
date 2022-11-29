@@ -1,4 +1,4 @@
-import { TransactionDTO } from '../dtos/transaction.dto';
+import { TransactionDTO } from '../interfaces/dtos/transaction.dto';
 import { TransactionRepository } from '../repositories/transactions.repository';
 import { AccountRepository } from '../repositories';
 import { Request, Response, NextFunction } from 'express';

@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { AccountDTO } from '../dtos';
+import { AccountDTO } from '../interfaces/dtos';
 import { AccountInterface } from '../interfaces/account.interface';
 const prisma = new PrismaClient();
 

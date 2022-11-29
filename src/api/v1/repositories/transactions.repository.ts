@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { TransactionDTO } from '../dtos/transaction.dto';
+import { TransactionDTO } from '../interfaces/dtos/transaction.dto';
 import { TransactionInterface } from '../interfaces/transaction.interface';
 const prisma = new PrismaClient();
 
@@ -10,10 +10,10 @@ export class TransactionRepository {
         data: transaction,
       });
 
-      if(!response){
-        throw new Error("Erro na criação da transação")
+      if (!response) {
+        throw new Error('Erro na criação da transação');
       }
-      
+
       return response;
     } catch (error) {
       console.error(error);

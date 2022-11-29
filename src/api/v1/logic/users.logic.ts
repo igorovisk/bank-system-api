@@ -1,5 +1,5 @@
 import { UserRepository } from '../repositories';
-import { UserDTO } from '../dtos';
+import { UserDTO } from '../interfaces/dtos';
 import { NextFunction, Request, Response } from 'express';
 import { Encrypt } from '../../../utils/encrypt/crypto';
 import { AccountController } from '../controllers';

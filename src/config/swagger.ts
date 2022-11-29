@@ -5,7 +5,7 @@ const options: swaggerJsdoc.Options = {
   basePath: '/',
   swaggerDefinition: {
     info: {
-      description: 'Api Prospects',
+      description: 'bank_system',
       title: 'NG',
       version: '1.0.0',
     },

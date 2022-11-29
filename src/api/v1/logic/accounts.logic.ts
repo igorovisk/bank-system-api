@@ -1,5 +1,5 @@
 import { AccountRepository } from '../repositories';
-import { AccountDTO } from '../dtos';
+import { AccountDTO } from '../interfaces/dtos';
 import { NextFunction, Request, Response } from 'express';
 
 export class AccountLogic {

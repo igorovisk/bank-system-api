@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { UserDTO } from '../dtos';
+import { UserDTO } from '../interfaces/dtos';
 import { UserInterface } from '../interfaces/user.interface';
 const prisma = new PrismaClient();
 
